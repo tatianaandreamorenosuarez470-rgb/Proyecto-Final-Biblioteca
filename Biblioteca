@@ -31,5 +31,7 @@ def crear(titulo, contenido, tipo="nota"):
     return nota
 
 if __name__ == "__main__":
-    crear("Mi primera nota", "saquen a tatiana")
+    crear("Mi primera nota", "saquen a sai")
     print(leer())
+
+#def obtener(id_nota)
