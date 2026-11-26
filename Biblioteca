@@ -2,22 +2,18 @@ import json
 import uuid
 from pathlib import Path
 from datetime import datetime
-
-ARCHIVO = Path("notas.json")
-
-def guardar(notas): 
+ARCHIVO = Path("bibliotecaDusu.json")
+def guardarC(notas): 
     with open(ARCHIVO,"w",encoding="utf-8") as f:
         json.dump(notas,f, indent=2, ensure_ascii=False)
-
 def leer():
     if not ARCHIVO.exists():
         return []
     texto = ARCHIVO.read_text(encoding="utf-8")
-    if texto.strip() == "":
+    if texto == "":
         return []
     return json.loads(texto)
-
-def crear(titulo, contenido, tipo="nota"):
+def crear(titulo, contenido, tipo="notitaalmargen"):
     lista = leer()
     nota = {
         "id": str(uuid.uuid4()),
@@ -27,11 +23,22 @@ def crear(titulo, contenido, tipo="nota"):
         "fecha": datetime.now().isoformat(),
     }
     lista.append(nota)
-    guardar(lista)
+    guardarC(lista)
     return nota
+def obtener(id_nota):
+    lista = leer()
+    for nota in lista:
+        if nota["id"] == id_nota:
+            return nota
+    return None
+def listar():
+    return leer()
+def eliminar(id_nota):
+    lista = leer()
+    for nota in lista:
+        if nota["id"] == id_nota:
+            lista.remove(nota)
+            guardar(lista)
+            return True
 
-if __name__ == "__main__":
-    crear("Mi primera nota", "saquen a sai")
-    print(leer())
-
-#def obtener(id_nota)
+    return False
