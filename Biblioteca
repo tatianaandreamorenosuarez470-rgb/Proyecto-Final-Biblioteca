@@ -1,2 +1,36 @@
-print ("World hello")
-#d
+import json
+import uuid
+from pathlib import Path
+from datetime import datetime
+
+ARCHIVO = Path("notas.json")
+
+def guardar(notas): 
+    with open(ARCHIVO,"w",encoding="utf-8") as f:
+        json.dump(notas,f, indent=2, ensure_ascii=False)
+
+def leer():
+    if not ARCHIVO.exists():
+        return []
+    try:
+        with open(ARCHIVO, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        return []
+
+def crear(titulo, contenido, tipo="nota"):
+    lista = leer()
+    nota = {
+        "id": str(uuid.uuid4()),
+        "titulo": titulo,
+        "contenido": contenido,
+        "tipo": tipo,
+        "fecha": datetime.now().isoformat(),
+    }
+    lista.append(nota)
+    guardar(lista)
+    return nota
+
+if __name__ == "__main__":
+    crear("Mi primera nota", "Hola 😄")
+    print(leer())
