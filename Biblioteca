@@ -12,11 +12,10 @@ def guardar(notas):
 def leer():
     if not ARCHIVO.exists():
         return []
-    try:
-        with open(ARCHIVO, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except json.JSONDecodeError:
+    texto = ARCHIVO.read_text(encoding="utf-8")
+    if texto.strip() == "":
         return []
+    return json.loads(texto)
 
 def crear(titulo, contenido, tipo="nota"):
     lista = leer()
@@ -32,5 +31,5 @@ def crear(titulo, contenido, tipo="nota"):
     return nota
 
 if __name__ == "__main__":
-    crear("Mi primera nota", "Hola 😄")
+    crear("Mi primera nota", "saquen a tatiana")
     print(leer())
