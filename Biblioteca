@@ -32,17 +32,3 @@ def crear(titulo, contenido, tipo="notitaalmargen"):
 
 def listar():
     return leer()
-
-def eliminar(id_nota):
-    lista = leer()
-    for nota in lista:
-        if nota["id"] == id_nota:
-            lista.remove(nota)
-            guardar(lista)
-            return True
-
-    return False
-
-if __name__ == "__main__":
-    crear("Mi primera nota", "saquen a sai")
-    print(leer())
