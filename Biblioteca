@@ -8,7 +8,6 @@ ARCHIVO = Path("bibliotecaDusu.json")
 def guardarC(notas): 
     with open(ARCHIVO,"w",encoding="utf-8") as f:
         json.dump(notas,f, indent=2, ensure_ascii=False)
-
 def leer():
     if not ARCHIVO.exists():
         return []
@@ -16,7 +15,6 @@ def leer():
     if texto == "":
         return []
     return json.loads(texto)
-
 def crear(titulo, contenido, tipo="notitaalmargen"):
     lista = leer()
     nota = {
@@ -29,6 +27,5 @@ def crear(titulo, contenido, tipo="notitaalmargen"):
     lista.append(nota)
     guardarC(lista)
     return nota
-
 def listar():
     return leer()
